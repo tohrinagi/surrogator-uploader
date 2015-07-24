@@ -1,0 +1,11 @@
+%html
+  %head
+    %meta(charaset='utf-8')
+    %title Todo Application
+    %link(href='/css/bootstrap.min.css' rel='stylesheet' type='text/css')
+  %body
+    .navbar.navbar-inner
+      %a.brand(href='/signin') アイコンアップローダー
+
+    .container
+      != yield

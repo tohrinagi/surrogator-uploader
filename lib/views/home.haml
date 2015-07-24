@@ -1,0 +1,12 @@
+%h1 アイコンアップローダー ログイン
+
+%h1 さんの現在のアイコン
+
+%form.form-horizontal{:action => "/upload", :method => "post", :enctype => "multipart/form-data" }
+  .control-group
+    %label.control-label{:for => "file"} ファイル
+    .controls
+      %input.span3{:name => "file", :type => "file", :value => ""}
+  .control-group
+    .controls
+      %input.btn{:type => "submit", :value => "アップロード"}
