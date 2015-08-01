@@ -1,4 +1,5 @@
 require 'net/ldap'
+require 'pp'
 
 #LDAP認証モジュール
 module LdapAuth
@@ -8,32 +9,31 @@ module LdapAuth
 
   #ユーザークラス
   class LdapUser
-    attr_reader :username, :mail, :group
+    attr_reader :id, :mail, :group
 
-    def initialize(username, mail, :group)
-      @username = username
+    def initialize(id, mail, group)
+      @id = id
       @mail = mail
       @group = group
     end
   end
 
   def self.initialize(host, port, base)
-    @host = host
-    @port = port
-    @base = base
+    @@host = host
+    @@port = port
+    @@base = base
   end
 
-  def self.authenticate(username, password)
-    conn = Net::LDAP.new :host => @@host, :port => @@port, :base => @@base,
-      :auth => { :username => "#{username}",
-                 :password => password, :method => :simple }
+  def self.authenticate(id, password)
+    ldap = Net::LDAP.new( :host => @@host, :port => @@port, :base => @@base,
+      :auth => { :id => "#{id}", :password => password, :method => :simple } )
 
     group = Hash.new
     mail = ''
-    if conn.bind
-      conn.open do |ldap|
-        filter = Net::LDAP::Filter.eq("cn", username)
-        ldap.search(:filter => filter, :return_result => false ) do |entry|
+    if ldap.bind
+      ldap.open do |item|
+        filter = Net::LDAP::Filter.eq("cn", id)
+        item.search(:filter => filter, :return_result => false ) do |entry|
           entry.each do |attr_name, values|
             group[attr_name] = values
           end
@@ -41,7 +41,8 @@ module LdapAuth
         end
       end
     end
-
-    return LdapUser.new(username, mail, group)
+    return LdapUser.new(id, mail, group)
+  rescue Net::LDAP::LdapError => e
+    return nill
   end
 end

@@ -8,7 +8,13 @@
   .control-group
     %label.control-label{:for => "file"} ファイル
     .controls
-      %input.span3{:name => "file", :type => "file", :value => "", :accept => "image/*"}
+      - if @submit_enabled
+        %input.span3{:name => "file", :type => "file", :value => "", :accept => "image/*"}
+      - else
+        %input.span3{:name => "file", :type => "file", :value => "", :accept => "image/*", :disabled => "disabled"}
   .control-group
     .controls
-      %input.btn{:type => "submit", :value => "アップロード"}
+      - if @submit_enabled
+        %input.btn{:type => "submit", :value => "アップロード" }
+      - else
+        %input.btn{:type => "submit", :value => "アップロード", :disabled => "disabled" }
