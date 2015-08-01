@@ -44,11 +44,10 @@ module SurrogatorUploader
         return
       end
 
-      # メールアドレスがなければ、すみませんページ
+      #TODO メールアドレスがなければ、すみませんページ
 
       # それ以外ならばアイコンがあればアイコン表示。なければデフォルト表示
-      md5 = Digest::MD5.new.update( session[:mail] ).to_s
-      @image_path = yml["surrogator"]["icon_dir"] + md5
+      @image_path = yml["surrogator"]["url"] + Digest::MD5.new.update( session[:mail] ).to_s
       @error = session[:error]
       @id = session[:id]
       haml :home
@@ -76,8 +75,12 @@ module SurrogatorUploader
             p params[:file][:tempfile]
             f.write params[:file][:tempfile].read
           end
-          #TODO 画像をフォルダに上書きし、php実行
-          session[:error] = nil
+          result = system("php #{yml["surrogator"]["php_path"]}")
+          if result
+            session[:error] = nil
+          else
+            session[:error] = "アイコンの更新ができませんでした"
+          end
         else
           session[:error] = "jpg または png ファイルをアップロードしてください"
         end
