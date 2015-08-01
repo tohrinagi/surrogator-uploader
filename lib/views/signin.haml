@@ -1,4 +1,4 @@
-%h1 アイコンアップローダー ログイン
+%h1 ログイン
 
 != haml :_error, locals: {error: @error}
 
@@ -6,7 +6,7 @@
   .control-group
     %label.control-label{:for => "id"} ID
     .controls
-      %input.span3{:name => "id", :type => "text", :value => ""}
+      %input.span3{:name => "id", :type => "text", :value => @id}
   .control-group
     %label.control-label{:for => "password"} Password
     .controls

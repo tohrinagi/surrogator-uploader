@@ -1,8 +1,7 @@
-%h1 Let' chat サポートページ
+%h1 #{@id} さんの情報
 
 != haml :_error, locals: {:error => @error}
 
-%h2 さんの現在のアイコン
 %img{alt: "icon", height: "20", src: @image_path, width: "20"}
 
 %form.form-horizontal{:action => "/upload", :method => "post", :enctype => "multipart/form-data" }
