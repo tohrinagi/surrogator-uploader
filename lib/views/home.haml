@@ -1,12 +1,15 @@
-%h1 アイコンアップローダー ログイン
+%h1 Let' chat サポートページ
 
-%h1 さんの現在のアイコン
+!= haml :_error, locals: {:error => @error}
+
+%h2 さんの現在のアイコン
+%img{alt: "icon", height: "20", src: @image_path, width: "20"}
 
 %form.form-horizontal{:action => "/upload", :method => "post", :enctype => "multipart/form-data" }
   .control-group
     %label.control-label{:for => "file"} ファイル
     .controls
-      %input.span3{:name => "file", :type => "file", :value => ""}
+      %input.span3{:name => "file", :type => "file", :value => "", :accept => "image/*"}
   .control-group
     .controls
       %input.btn{:type => "submit", :value => "アップロード"}

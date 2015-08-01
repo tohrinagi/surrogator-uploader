@@ -1,0 +1,7 @@
+surrogator:
+  icon_dir: /home/vagrant/
+  php_path: /abc/def/surrogator.php
+ldap:
+  server: 192.168.33.1
+  port: 389
+  base: 'ou=test,dc=co,dc=jp'

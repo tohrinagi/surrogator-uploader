@@ -1,5 +1,7 @@
 %h1 アイコンアップローダー ログイン
 
+!= haml :_error, locals: {error: @error}
+
 %form.form-horizontal{:action => '/session', :method => 'post'}
   .control-group
     %label.control-label{:for => "id"} ID
