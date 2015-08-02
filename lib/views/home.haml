@@ -2,19 +2,19 @@
 
 != haml :_error, locals: {:error => @error}
 
-%img{alt: "icon", height: "20", src: @image_path, width: "20"}
+%img{alt: "icon", height: "20", src: @image_path, width: "50", height: "50"}
 
 %form.form-horizontal{:action => "/upload", :method => "post", :enctype => "multipart/form-data" }
   .control-group
     %label.control-label{:for => "file"} ファイル
     .controls
       - if @submit_enabled
-        %input.span3{:name => "file", :type => "file", :value => "", :accept => "image/*"}
+        %input.btn.btn-lg{:name => "file", :type => "file", :value => "", :accept => "image/*"}
       - else
-        %input.span3{:name => "file", :type => "file", :value => "", :accept => "image/*", :disabled => "disabled"}
+        %input.btn.btn-lg{:name => "file", :type => "file", :value => "", :accept => "image/*"}(disabled)
   .control-group
     .controls
       - if @submit_enabled
-        %input.btn{:type => "submit", :value => "アップロード" }
+        %button.btn.btn-lg{:type => "submit"} アップロード
       - else
-        %input.btn{:type => "submit", :value => "アップロード", :disabled => "disabled" }
+        %button.btn.btn-lg{:type => "submit"}(disabled) アップロード

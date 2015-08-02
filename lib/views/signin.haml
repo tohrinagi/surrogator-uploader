@@ -1,16 +1,9 @@
-%h1 ログイン
-
 != haml :_error, locals: {error: @error}
 
-%form.form-horizontal{:action => '/session', :method => 'post'}
-  .control-group
-    %label.control-label{:for => "id"} ID
-    .controls
-      %input.span3{:name => "id", :type => "text", :value => @id}
-  .control-group
-    %label.control-label{:for => "password"} Password
-    .controls
-      %input.span3{:name => "password", :type => "password", :value => ""}
-  .control-group
-    .controls
-      %input.btn{:type => "submit", :value => "ログイン"}
+%form.form-signin{:action => '/session', :method => 'post'}
+  %h2.form-signin-heading ログイン
+  %label.sr-only{:for => "id"} ID
+  %input.form-control{:name => "id", :type => "text", :value => @id, :placeholder => 'ID'}( required autofocus )
+  %label.sr-only{:for => "password"} Password
+  %input.form-control{:name => "password", :type => "password", :value => "", :placeholder => 'PASSWORD'}( required )
+  %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} ログイン

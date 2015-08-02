@@ -1,11 +1,12 @@
 %html
   %head
     %meta(charaset='utf-8')
-    %title Todo Application
+    %title アイコンアップローダー
     %link(href='/css/bootstrap.min.css' rel='stylesheet' type='text/css')
+    %link(href='/css/signin.css' rel='stylesheet' type='text/css')
   %body
-    .navbar.navbar-inner
-      %a.brand(href='/signin') アイコンアップローダー
+    .navbar.navbar-default
+      %a.navbar-brand(href='/signin') アイコンアップローダー
 
     .container
       != yield
