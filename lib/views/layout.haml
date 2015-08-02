@@ -1,9 +1,13 @@
 %html
   %head
     %meta(charaset='utf-8')
+    %meta(name='view-port' content='width=device-width, initial-scale=1')
     %title アイコンアップローダー
-    %link(href='/css/bootstrap.min.css' rel='stylesheet' type='text/css')
+    %link(href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet")
     %link(href='/css/signin.css' rel='stylesheet' type='text/css')
+    %link(href='/css/home.css' rel='stylesheet' type='text/css')
+    %script(type='application/javascript'){:src => "//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"}
+    %script(type='application/javascript'){:src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js'}
   %body
     .navbar.navbar-default
       %a.navbar-brand(href='/signin') アイコンアップローダー
