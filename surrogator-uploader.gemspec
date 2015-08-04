@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "sinatra",  "~> 1.4.6"
   spec.add_dependency "haml",     "~> 4.0.6"
-  spec.add_dependency "ruby-net-ldap",  "~> 0.0.4"
+  spec.add_dependency "net-ldap",  "~> 0.10.0"
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
 end

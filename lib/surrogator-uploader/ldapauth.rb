@@ -1,5 +1,4 @@
 require 'net/ldap'
-require 'pp'
 
 #LDAP認証モジュール
 module LdapAuth
@@ -9,12 +8,11 @@ module LdapAuth
 
   #ユーザークラス
   class LdapUser
-    attr_reader :id, :mail, :group
+    attr_reader :id, :attribute
 
-    def initialize(id, mail, group)
+    def initialize(id, attribute)
       @id = id
-      @mail = mail
-      @group = group
+      @attribute = attribute
     end
   end
 
@@ -25,25 +23,28 @@ module LdapAuth
   end
 
   def self.authenticate(id, password)
-    return LdapUser.new(id,"id@example.com", "")
-    ldap = Net::LDAP.new( :host => @@host, :port => @@port, :base => @@base,
-      :auth => { :id => "#{id}", :password => password, :method => :simple } )
+    ldap = Net::LDAP.new
+    ldap.host = @@host
+    ldap.port = @@port
+    ldap.auth "uid=#{id},#{@@base}", password
+    ldap.base = @@base
 
-    group = Hash.new
+    attribute = Hash.new
     mail = ''
     if ldap.bind
       ldap.open do |item|
         filter = Net::LDAP::Filter.eq("cn", id)
         item.search(:filter => filter, :return_result => false ) do |entry|
           entry.each do |attr_name, values|
-            group[attr_name] = values
+            attribute[attr_name] = values
           end
-          #TODO get mail
         end
       end
+      return LdapUser.new(id, attribute)
+    else
+      return nil
     end
-    return LdapUser.new(id, mail, group)
   rescue Net::LDAP::LdapError => e
-    return nill
+    return nil
   end
 end

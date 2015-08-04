@@ -70,7 +70,7 @@ module SurrogatorUploader
       end
       session[:error] = nil
       session[:login] = true
-      session[:mail] = user.mail
+      session[:mail] = user.attribute[:mail][0]
       redirect '/home'
     end
 
