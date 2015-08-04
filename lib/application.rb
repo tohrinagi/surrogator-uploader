@@ -48,7 +48,7 @@ module SurrogatorUploader
       @error = session[:error]
       @id = session[:id]
       if session[:mail] && !session[:mail].empty?
-        @image_path = yml["surrogator"]["url"] + Digest::MD5.new.update( session[:mail] ).to_s
+        @image_path = yml["surrogator"]["url"] + Digest::MD5.new.update( session[:mail] ).to_s + "?#{Time.now.to_i}"
         @submit_enabled = true
       else
         @error = "メールアドレスがないため、アイコンを使うことができません"
@@ -60,9 +60,8 @@ module SurrogatorUploader
     post '/session' do
       LdapAuth.initialize(yml["ldap"]["server"], yml["ldap"]["port"], yml["ldap"]["base"])
       session[:id] = params[:id]
-      begin
         user = LdapAuth.authenticate(params[:id], params[:password])
-      rescue
+      if user.nil?
         session[:error] = "ログインできませんでした"
         session[:login] = nil
         redirect '/signin'
