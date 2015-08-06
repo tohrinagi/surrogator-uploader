@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'sinatra/base'
 require 'haml'
 require 'yaml'
@@ -9,7 +10,9 @@ module SurrogatorUploader
 
     set :haml, escape_html: true
     enable :sessions
-    set :session_secret, 'YOUR_SECRET_SECRET_KEY'
+    set :session_secret, '9lkjsd98t-2jqkt9jb'
+    set :public, File.dirname(__FILE__) + '/public'
+
 
     helpers do
       def yml
@@ -23,7 +26,7 @@ module SurrogatorUploader
     end
 
     get '/' do
-      redirect '/signin'
+      redirect to('/signin')
     end
 
     get '/signin' do
@@ -34,13 +37,13 @@ module SurrogatorUploader
 
     get '/signout' do
       session.clear
-      redirect '/signin'
+      redirect to('/signin')
     end
 
     get '/home' do
       # LDAPログインできていなければエラーページ
       unless session[:login]
-        redirect '/signin'
+        redirect to('/signin')
         return
       end
 
@@ -64,18 +67,18 @@ module SurrogatorUploader
       if user.nil?
         session[:error] = "ログインできませんでした"
         session[:login] = nil
-        redirect '/signin'
+        redirect to('/signin')
         return
       end
       session[:error] = nil
       session[:login] = true
       session[:mail] = user.attribute[:mail][0]
-      redirect '/home'
+      redirect to('/home')
     end
 
     post '/upload' do
       unless session[:login]
-        redirect '/signin'
+        redirect to('/signin')
         return
       end
       permit_ext = [".jpg",".JPG",".jpeg",".JPEG",".png",".PNG"]
@@ -101,7 +104,7 @@ module SurrogatorUploader
       else
         session[:error] = "アップロードに失敗しました"
       end
-      redirect '/home'
+      redirect to('/home')
     end
 
     not_found do

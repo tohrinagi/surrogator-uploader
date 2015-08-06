@@ -11,14 +11,17 @@
         .col-sm-6.col-md-8
           %h5
         .col-sm-6.col-md-8
-          %form{:action => "/upload", :method => "post", :enctype => "multipart/form-data" }
+          %form{:action => url("/upload"), :method => "post", :enctype => "multipart/form-data" }
             %input{:type => "file", :id => "file_input", :name => "file", :style => "display: none;", :accept => "image/*" }
             .upload.input-group
               %span.input-group-btn
                 %button.btn.btn-default{:type => "button", :onclick => "$('#file_input').click();"}
                   %i.glyphicon.glyphicon-folder-open
               %input.form-control{:id => "dummy_file", :type => "type", :placeholder => "ファイルを選んでください"}(disabled)
-            %button.btn.btn-primary{:type => "submit"} アイコン変更
+            - if @submit_enabled
+              %button.btn.btn-primary{:type => "submit"} アイコン変更
+            - else
+              %button.btn.btn-primary{:type => "submit"}(disabled) アイコン変更
 :javascript
 $(function(){
   $('#file_input').change(function() {

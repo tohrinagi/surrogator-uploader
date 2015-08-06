@@ -1,3 +1,4 @@
-require 'application'
+# config.ru
+require './lib/application'
 
 run SurrogatorUploader::Application

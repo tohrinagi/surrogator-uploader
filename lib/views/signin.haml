@@ -1,6 +1,6 @@
 != haml :_error, locals: {error: @error}
 
-%form.form-signin{:action => '/session', :method => 'post'}
+%form.form-signin{:action => url('/session'), :method => 'post'}
   %h2.form-signin-heading ログイン
   %label.sr-only{:for => "id"} ID
   %input.form-control{:name => "id", :type => "text", :value => @id, :placeholder => 'ID'}( required autofocus )
